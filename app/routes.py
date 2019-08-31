@@ -1,7 +1,14 @@
 from flask import Flask, render_template, url_for, redirect, request
-import sys, socket, selectors, traceback
-
 app = Flask(__name__)
+log = 0
+Name = "Pta Nhi"
+
+@app.route('/')
+def home():
+	if log is 0:
+		return render_template('login.html')
+	else:
+		return 'Hello %s!' % name
 
 @app.route('/success/<name>/')
 def success(name):
@@ -9,18 +16,17 @@ def success(name):
 
 @app.route('/login/',methods = ['POST','GET'])
 def login():
-	if request.method == 'POST':
-		user = request.form['nm']
-		return redirect(url_for('success',name = user))
+	global log
+	if log is 0:
+		return redirect(url_for('home'))
+	elif request.method == 'POST':
+		Name = request.form['nm']
+		log = 1
+		return redirect(url_for('success',name = Name))
 	else:
-		user = request.args.get('nm')
-		return redirect(url_for('success',name = user))
-
-
-@app.route('/')
-def home():
-	return render_template('login.html')
-	# return redirect(url_for('login'))
+		Name = request.args.get('nm')
+		log = 1
+		return redirect(url_for('success',name = Name))
 
 @app.route('/hello/<name>/')
 def hello(name):
