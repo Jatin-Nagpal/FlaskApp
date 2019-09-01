@@ -1,9 +1,13 @@
-git init - creates a new Git repository
-git status - inspects the contents of the working directory and staging area
-git add - adds files from the working directory to the staging area
-git diff - shows the difference between the working directory and the staging area
-git commit - permanently stores file changes from the staging area in the repository
-git log - shows a list of all previous commits
-git checkout HEAD filename - Discards changes in the working directory.
-git reset HEAD filename - Unstages file changes in the staging area.
-git reset commit_SHA - Resets to a previous commit in your commit history.
+git config --global user.name/email/password
+git init					Creates a new Git repository
+git clone [url]				Retrive an entire repository from a hosted location via URL
+git status					Inspects the contents of the working directory and staging area
+git add						Adds files from the working directory to the staging area
+git diff 					Shows the difference between the working directory and the staging area
+git diff --staged			Diff of what is changed but not staged
+git commit 					Permanently stores file changes from the staging area in the repository
+git log 					Shows a list of all previous commits
+git checkout HEAD filename	Discards changes in the working directory.
+git reset HEAD filename 	Unstages file changes in the staging area.
+git reset commit_SHA 		Resets to a previous commit in your commit history.
+git reset --hard HEAD~1		
