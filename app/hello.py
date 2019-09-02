@@ -1,6 +1,6 @@
 from flask import Flask, session, render_template, url_for, redirect, request, escape
 app=Flask(__name__)
-import sqlite3
+import sqlite3 as sql
 app.secret_key = 'any random string'
 
 @app.route('/')
@@ -26,6 +26,8 @@ def logout():
 	session.pop('handle', None)
 	return redirect(url_for('home'))
 
+global msg
+msg = "Hello"
 @app.route('/regis/',methods = ['POST','GET'])
 def regis():
 	if request.method == 'POST':
@@ -36,16 +38,18 @@ def regis():
 
 			with sql.connect("database.db") as con:
 				cur = con.cursor()
-				cur.execute("INSERT INTO coders (handle,email,password) VALUES (?,?,?,?)", (handle,email,password) )
-
-			con.commit()
-			msg = "Coder Successfully Added"
+				cur.execute("INSERT INTO coders (handle,email,password) VALUES (?,?,?)", (handle,email,password) )
+				con.commit()
+				global msg
+				msg = "Coder Successfully Added"
 		except:
 			con.rollback()
+			global msg
 			msg = "Error in insert operation"
 
 		finally:
-			return render_template("result.html",msg = msg)
+			global msg
+			return render_template("result.html", msg = msg)
 			con.close()
 
 @app.route('/list/')
