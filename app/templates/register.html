@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Register - FlaskApp</title>
+	</head>
+	<body>
+		<form action = "{{ url_for('regis') }}" method="POST">
+			<h3>Register as a New User</h3>
+			Handle<br>
+			<input type="text" name="handle" /><br>
+
+			E-Mail<br>
+			<input type="text" name="email" /><br>
+
+			Password<br>
+			<input type="text" name="password" /><br>
+
+			<p><input type = "submit" value = "submit" /></p>
+			
+		</form>
+	</body>
+</html>

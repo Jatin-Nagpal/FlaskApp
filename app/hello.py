@@ -1,5 +1,6 @@
 from flask import Flask, session, render_template, url_for, redirect, request, escape
 app=Flask(__name__)
+import sqlite3
 app.secret_key = 'any random string'
 
 @app.route('/')
@@ -20,18 +21,47 @@ def loggedin():
 		session['handle'] = request.form['handle']
 		return redirect(url_for('home'))
 
-@app.route('/logout')
+@app.route('/logout/')
 def logout():
 	session.pop('handle', None)
 	return redirect(url_for('home'))
 
-@app.route('/regis',methods = ['POST','GET'])
+@app.route('/regis/',methods = ['POST','GET'])
 def regis():
-	return redirect(url_for('register'))
+	if request.method == 'POST':
+		try:
+			handle = request.form['handle']
+			email = request.form['email']
+			password = request.form['password']
 
-@app.route('/register',methods = ['POST','GET'])
+			with sql.connect("database.db") as con:
+				cur = con.cursor()
+				cur.execute("INSERT INTO coders (handle,email,password) VALUES (?,?,?,?)", (handle,email,password) )
+
+			con.commit()
+			msg = "Coder Successfully Added"
+		except:
+			con.rollback()
+			msg = "Error in insert operation"
+
+		finally:
+			return render_template("result.html",msg = msg)
+			con.close()
+
+@app.route('/list/')
+def list():
+	con = sql.connect("database.db")
+	con.row_factory = sql.Row
+
+	cur = con.cursor()
+	cur.execute("select * from students")
+
+	rows = cur.fetchall();
+	return render_template("list.html", rows = rows)
+
+@app.route('/register/',methods = ['POST','GET'])
 def register():
-	return
+	return render_template("register.html")
 
 
 

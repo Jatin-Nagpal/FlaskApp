@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registered Handles list</title>
+</head>
+<body>
+	<table border = 1>
+		<thread>
+			<td>Handle</td>
+			<td>E-Mail</td>
+		</thread>
+		{% for row in rows %}
+			<tr>
+				<td>{{row["handle"]}}</td>
+				<td>{{row["email"]}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>
