@@ -26,8 +26,6 @@ def logout():
 	session.pop('handle', None)
 	return redirect(url_for('home'))
 
-global msg
-msg = "Hello"
 @app.route('/regis/',methods = ['POST','GET'])
 def regis():
 	if request.method == 'POST':
@@ -40,15 +38,12 @@ def regis():
 				cur = con.cursor()
 				cur.execute("INSERT INTO coders (handle,email,password) VALUES (?,?,?)", (handle,email,password) )
 				con.commit()
-				global msg
 				msg = "Coder Successfully Added"
 		except:
 			con.rollback()
-			global msg
 			msg = "Error in insert operation"
 
 		finally:
-			global msg
 			return render_template("result.html", msg = msg)
 			con.close()
 
@@ -58,7 +53,7 @@ def list():
 	con.row_factory = sql.Row
 
 	cur = con.cursor()
-	cur.execute("select * from students")
+	cur.execute("select * from coders")
 
 	rows = cur.fetchall();
 	return render_template("list.html", rows = rows)
@@ -66,8 +61,6 @@ def list():
 @app.route('/register/',methods = ['POST','GET'])
 def register():
 	return render_template("register.html")
-
-
 
 if __name__ == '__main__':
 	app.run(debug=True)
