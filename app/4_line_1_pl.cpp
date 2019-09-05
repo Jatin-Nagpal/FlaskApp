@@ -4,11 +4,13 @@ using namespace std;
 
 // Let Bot is 2 and User is 1
 int n=8,m=8;
+int la;
 int a[16][16],sum=0;
+array <int,8> b;
 int check()
 {
 	if(sum==64)
-		return 1;
+		return 3;
 	f(i,0,n)
 		f(j,0,m)
 		{
@@ -25,12 +27,26 @@ int check()
 }
 int32_t main()
 {
-	
-	int turn=1;
+	cout<<"Enter 1 if u want to play first\n";
+	int turn;
+	cin>>turn;
+	if(turn!=1)
+		turn=2;
+	cout<<"Enter the difficulty level starting from 0\n";
+	f(i,0,m)
+		b[i]=n-1;
+	cin>>la;
 	while(1)
 	{
-		if(check())
+		int won=check();
+		if(won)
 		{
+			if(won==3)
+				cout<<"It's a draw\n";
+			else if(won==2)
+				cout<<"Bot won\n";
+			else
+				cout<<"User won\n";
 			break;
 		}
 		f(i,0,n)
@@ -41,16 +57,26 @@ int32_t main()
 			}
 			cout<<'\n';
 		}
-		int ch;
-		cin>>ch;
-		ch--;
-		int i=n-1;
-		while(a[i][ch]!=0)
+		if(turn == 1)
 		{
-			i--;
+			int ch;
+			cin>>ch;
+			ch--;
+			int flag=0;
+			if(b[ch]<0)
+			{
+				cout<<"Wrong Move, the column is already filled, Enter a different move\n";
+				continue;
+			}
+			sum++;
+			a[b[ch]][ch]=turn;
+			b[ch]--;
 		}
-		sum++;
-		a[i][ch]=turn;
+		else
+		{
+			vector <pair <int,int> > mov;
+			
+		}
 		turn =3-turn;
 	}
 	f(i,0,n)
