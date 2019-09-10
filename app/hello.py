@@ -1,14 +1,31 @@
 from flask import Flask, session, render_template, url_for, redirect, request, escape
 app=Flask(__name__)
+from flask_bootstrap import Bootstrap
 import sqlite3 as sql
 app.secret_key = 'any random string'
 
+def create_app():
+	app = Flask(__name__)
+	Bootstrap(app)
+	return app
+
+posts = [
+	{
+		'author': 'Jatin Nagpal',
+		'title': 'First Blog',
+		'content': 'First post content',
+		'date_posted': 'September 10, 2019'
+	}
+]
+
+@app.route('/home/')
 @app.route('/')
 def home():
 	if 'handle' in session:
 		handle = session['handle']
-		return 'Logged in as ' + handle + '<br>' +\
-		"<b><a href = '/logout'>Click here to log out</a></b>"
+		return render_template('home.html', posts=posts,title = 'Home Page')
+		# return 'Logged in as ' + handle + '<br>' +\
+		# "<b><a href = '/logout'>Click here to log out</a></b>"
 	return redirect(url_for('login'))
 
 @app.route('/login/')
