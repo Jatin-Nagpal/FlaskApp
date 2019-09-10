@@ -1,15 +1,8 @@
 {% extends "layout.html" %}
-{% block abc %}
+{% block layout %}
 	{% for post in posts %}
 		<h1>{{ post.title }}</h1>
 		<p>By {{ post.author }} on {{ post.date_posted }}</p>
 		<p>{{ post.content }}</p>
 	{% endfor %}
-{% endblock abc %}
-<!-- {% extends "layout.html" %}
-{% block content %}
-  <div class="jumbo">
-    <h2>Welcome to my First app<h2>
-    <h3>This is the home page of my First app<h3>
-  </div>
-{% endblock %} -->
+{% endblock %}
