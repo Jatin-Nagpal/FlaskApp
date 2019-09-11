@@ -1,14 +1,21 @@
-<html>
-	<body>
-		<form action = "http://localhost:5000/loggedin/" method = "POST">
-			<p>Enter Handle:</p>
-			<p><input type = "text" name = "handle" /></p>
-			<p>Enter Password:</p>
-			<p><input type = "text" name = "password" /></p>
-			<p><input type = "submit" value = "submit" /></p>
+{% extends "layout.html" %}
+{% block layout %}
+	<div class="container">
+		<form class="form-signin" action = "http://localhost:5000/loggedin/" method = "POST">
+			<br></br>
+			<div class = "row">
+				<div class = "col-sm">Enter Handle: </div>
+				<div class = "col-sm"><input type = "text" name = "handle" /></div>
+			</div>
+			<div class = "row">
+				<p>Enter Password: <input type = "text" name = "password" /></p>
+			</div>
+			<div class = "row">
+				<p><input type = "submit" value = "submit" /></p>
+			</div>
 		</form>
 		<form action = "http://localhost:5000/register/" method = "POST">
 			<p>If u are a new User, Click <input type = "submit" value = "here" /></p>
 		</form>
-	</body>
-</html>
+	</div>
+{% endblock %}
